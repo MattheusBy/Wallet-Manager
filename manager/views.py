@@ -9,6 +9,8 @@ from manager.models import Transaction, UserProfile
 from manager.serializer import UserSerializer, GroupSerializer, TransactionSerializer
 
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -42,7 +44,7 @@ class TransactionView(generics.ListAPIView):
         return Transaction.objects.filter(user=user)
 
 
-class TransactionCreate(generics.CreateAPIView):
+class TransactionCreateView(generics.CreateAPIView):
     queryset = Transaction.objects.create()
     serializer_class = TransactionSerializer
 
@@ -55,3 +57,10 @@ class TransactionCreate(generics.CreateAPIView):
             queryset_profile.save(update_fields=['balance'])
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class TransactionSortList(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'amount', 'time']
