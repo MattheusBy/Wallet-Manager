@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cost_manager',
         'USER': 'cost_manager',
-        'PASSWORD': 'aauwdw456wYted',
+        'PASSWORD': '*********',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -158,7 +158,7 @@ DRF_REGISTRATION = {
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'DjangoMarket'
-EMAIL_HOST_PASSWORD = 'vkokcdkfybfxhttf'
+EMAIL_HOST_PASSWORD = '*******'
 EMAIL_USE_SSL = True
 
 
