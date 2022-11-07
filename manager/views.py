@@ -1,18 +1,12 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from django.db.models import F
+from django.http import request
+from rest_framework import viewsets, status, generics
 from rest_framework import permissions
+from rest_framework.response import Response
 
-from manager.serializer import UserSerializer, GroupSerializer
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
+from manager.models import Transaction, UserProfile
+from manager.serializer import UserSerializer, GroupSerializer, TransactionSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -31,3 +25,33 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class TransactionView(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = TransactionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Transaction.objects.filter(user=user)
+
+
+class TransactionCreate(generics.CreateAPIView):
+    queryset = Transaction.objects.create()
+    serializer_class = TransactionSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            self.perform_create(serializer)
+            queryset_profile = UserProfile.objects.get(user_id=request.user.pk)
+            queryset_profile.balance = queryset_profile.balance - float(request.data['amount'])
+            queryset_profile.save(update_fields=['balance'])
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
