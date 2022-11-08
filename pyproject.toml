@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cost-manager-project"
+version = "0.1.0"
+description = ""
+authors = ["MattheusBy <mattaudia6@gmail.com>"]
+readme = "README.md"
+packages = [{include = "cost_manager_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
