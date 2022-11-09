@@ -1,22 +1,6 @@
 version: '3'
 
 services:
-  web:
-    restart: always
-    build: ./web
-    expose:
-      - "8000"
-    links:
-      - postgres:postgres
-      - redis:redis
-    volumes:
-      - web-django:/usr/src/app
-      - web-static:/usr/src/app/static
-    env_file: pyproject.toml
-    environment:
-      DEBUG: 'true'
-    command: /usr/local/bin/gunicorn docker_django.wsgi:application -w 2 -b :8000
-
   nginx:
     restart: always
     build: ./nginx/
@@ -30,6 +14,10 @@ services:
   postgres:
     restart: always
     image: postgres:latest
+    environment:
+      POSTGRES_DB: "cost_manager"
+      POSTGRES_USER: "cost_manager"
+      POSTGRES_PASSWORD: "aauwdw456wYted"
     ports:
       - "5432:5432"
     volumes:
@@ -42,6 +30,22 @@ services:
       - "6379:6379"
     volumes:
       - redisdata:/data
+
+  web:
+    restart: always
+    build: ./web
+    expose:
+      - "8000"
+    links:
+      - postgres:postgres
+      - redis:redis
+    volumes:
+      - web-django:/usr/src/app
+      - web-static:/usr/src/app/static
+    env_file: web/pyproject.toml
+    environment:
+      DEBUG: 'true'
+    command: poetry run gunicorn cost_manager.wsgi:application -w 2 -b :8000
 
 volumes:
   web-django:

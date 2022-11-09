@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0txup+ksk=vm3$rwn(mao@t!j7)a5_928l2$_*7j0)ur4e03($
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'cost_manager',
         'USER': 'cost_manager',
         'PASSWORD': 'aauwdw456wYted',
-        'HOST': '127.0.0.1',
+        'HOST': '0.0.0.0',
         'PORT': '5432',
     }
 }

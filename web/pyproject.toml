@@ -3,7 +3,6 @@ name = "cost-manager"
 version = "0.1.0"
 description = ""
 authors = ["MattheusBy <mattaudia6@gmail.com>"]
-readme = "README.md"
 packages = [{include = "cost_manager"}]
 
 [tool.poetry.dependencies]
@@ -19,6 +18,7 @@ django-celery-beat = "^2.4.0"
 export = "^0.2.0"
 django-celery-results = "^2.4.0"
 shared = "^0.0.23"
+gunicorn = "^20.1.0"
 
 
 [build-system]
