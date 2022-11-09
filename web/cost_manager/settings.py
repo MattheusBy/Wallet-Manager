@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0txup+ksk=vm3$rwn(mao@t!j7)a5_928l2$_*7j0)ur4e03($'
+SECRET_KEY = 'hidden'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cost_manager',
         'USER': 'cost_manager',
-        'PASSWORD': 'aauwdw456wYted',
+        'PASSWORD': 'hidden',
         'HOST': '0.0.0.0',
         'PORT': '5432',
     }
@@ -159,7 +159,7 @@ DRF_REGISTRATION = {
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'DjangoMarket'
-EMAIL_HOST_PASSWORD = 'vkokcdkfybfxhttf'
+EMAIL_HOST_PASSWORD = 'hidden'
 EMAIL_USE_SSL = True
 
 
