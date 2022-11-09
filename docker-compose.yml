@@ -17,7 +17,7 @@ services:
     environment:
       POSTGRES_DB: "cost_manager"
       POSTGRES_USER: "cost_manager"
-      POSTGRES_PASSWORD: "aauwdw456wYted"
+      POSTGRES_PASSWORD: "hidden"
     ports:
       - "5432:5432"
     volumes:
