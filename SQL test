@@ -1,0 +1,11 @@
+SELECT notebooks_brand.title, COUNT(notebooks_brand.title) FROM notebooks_notebook
+INNER JOIN notebooks_brand
+ON notebooks_notebook.brand_id = notebooks_brand.id
+GROUP BY notebooks_brand.title
+ORDER BY COUNT(notebooks_brand.title) DESC;
+
+
+SELECT ROUND(diagonal:: bigint) as diag_rounded,COUNT(title) 
+FROM notebooks_notebook 
+GROUP BY diag_rounded 
+ORDER BY diag_rounded;
